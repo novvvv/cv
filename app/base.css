@@ -1,0 +1,101 @@
+/* ══════════════════════════════════════════════════
+   base.css — 토큰 · 리셋 · 타이포그래피
+
+   어두운 바탕에 좁은 한 칸. 선은 머리카락 굵기,
+   라벨은 작은 대문자, 강조는 파스텔 레드 형광펜.
+   ══════════════════════════════════════════════════ */
+
+:root {
+  /* williambout.me 와 동일한 톤: 바탕 #151515, 글자는 흰색 90% / 40%, 구분선은 흰색 5% */
+  --bg:      #151515;
+  --bg-2:    rgba(255, 255, 255, 0.06);   /* 코드 칩 */
+  --fg:      rgba(255, 255, 255, 0.9);    /* 본문 */
+  --muted:   rgba(255, 255, 255, 0.4);    /* 보조 */
+  --faint:   rgba(255, 255, 255, 0.4);    /* 날짜·라벨 */
+  --rule:    rgba(255, 255, 255, 0.05);
+  --hl:      #5A3034;   /* 형광펜 — 옅은 붉은색의 다크 버전 */
+  --hl-fg:   #FFD8DA;
+
+  --sans: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Text",
+          "Helvetica Neue", "Apple SD Gothic Neo", "Pretendard",
+          "Hiragino Sans", "Noto Sans KR", "Noto Sans JP", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --measure: 760px;
+  --gutter:  24px;
+
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  --bg:    #FFFFFF;
+  --bg-2:  #F6F7F8;
+  --fg:    #1D2023;
+  --muted: #5E666C;
+  --faint: #9AA1A7;
+  --rule:  #E6E9EB;
+  --hl:    #F8D9D9;   /* 파스텔 옅은 붉은색 */
+  --hl-fg: #1D2023;
+
+  color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--sans);
+  font-size: 14.5px;
+  line-height: 1.7;
+  word-break: normal;
+  line-break: strict;
+  overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+/* 한국어만 단어 중간에서 줄바꿈하지 않음 */
+[lang="ko"] { word-break: keep-all; }
+
+h1, h2, h3 { margin: 0; }
+p { margin: 0 0 0.9rem; }
+ul { margin: 0; padding: 0; list-style: none; }
+
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--rule);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.12s ease, color 0.12s ease;
+}
+a:hover { text-decoration-color: var(--fg); }
+
+code {
+  font-family: var(--mono);
+  font-size: 0.88em;
+  color: var(--fg);
+  background: var(--bg-2);
+  padding: 0.05em 0.35em;
+  border-radius: 4px;
+}
+
+strong { font-weight: 600; color: var(--fg); }
+
+/* 형광펜 강조 — 글자 뒤에 옅은 파스텔 블루 띠 */
+mark {
+  color: var(--hl-fg);
+  background: none;
+  background-image: linear-gradient(transparent 28%, var(--hl) 28%, var(--hl) 94%, transparent 94%);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding: 0 0.15em;
+  margin: 0 -0.15em;
+}
+
+/* 아직 채우지 않은 자리 */
+.todo { color: var(--faint); border-bottom: 1px dashed var(--faint); }

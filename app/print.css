@@ -1,0 +1,48 @@
+/* ══════════════════════════════════════════════════
+   print.css — 印刷 / PDF 専用（media="print" で読み込み）
+
+   ⌘ + P → PDF として保存 で適用されます。
+   リンクは URL を括弧で本文に出し、
+   項目が改ページで割れないようにします。
+   ══════════════════════════════════════════════════ */
+
+@page { size: A4; margin: 16mm 18mm; }
+
+@media print {
+  :root,
+  :root[data-theme="dark"] {
+    --bg:    #FFFFFF;
+    --fg:    #000000;
+    --muted: #333333;
+    --faint: #666666;
+    --rule:  #CCCCCC;
+    --bg-2:  #F2F2F2;
+    --hl:    #F8D9D9;
+    --hl-fg: #000000;
+  }
+
+  body { font-size: 10pt; line-height: 1.7; }
+  .page { max-width: none; padding: 0; }
+
+  .topbar .controls { display: none; }
+  .sidenav { display: none; }
+
+  section { margin-top: 1.6rem; page-break-inside: auto; }
+  h2 { margin-bottom: 0.8rem; }
+  .row { page-break-inside: avoid; break-inside: avoid; }
+  .shot { border-color: #CCCCCC; }
+
+  a { text-decoration: none; color: #000000; }
+  a[href^="http"]::after,
+  a[href^="mailto"]::after {
+    content: " (" attr(href) ")";
+    font-size: 7.5pt;
+    color: #666666;
+    word-break: break-all;
+  }
+  .connect a::after, .name::after { content: none; }
+
+  footer { margin-top: 1.5rem; }
+
+  mark { background: none; -webkit-print-color-adjust: exact; print-color-adjust: exact; background-image: linear-gradient(transparent 32%, #F8D9D9 32%, #F8D9D9 92%, transparent 92%); }
+}

@@ -1,0 +1,482 @@
+/* ══════════════════════════════════════════════════
+   layout.css — 페이지 골격
+
+   좁은 한 칸을 위에서 아래로. 섹션은 작은 대문자 라벨,
+   항목은 이름(좌) · 기간(우), 아래에 회색 한 줄.
+   ══════════════════════════════════════════════════ */
+
+.page {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding-inline: var(--gutter);
+  padding-block: 4.5rem 5rem;
+}
+
+/* ── 상단 ───────────────────────────────── */
+
+.topbar {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  font-size: 0.72rem;
+}
+
+.kicker {
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.kicker .sep { margin: 0 0.3em; }
+
+.controls { display: flex; gap: 1.4rem; align-items: baseline; }
+
+/* 言語セレクタ — 日本語 / 한국어 (選択中は明るく) */
+.seg { display: inline-flex; gap: 0.45rem; align-items: baseline; }
+.seg-sep { color: var(--faint); opacity: 0.6; }
+.seg .btn[aria-pressed="true"] { color: var(--fg); }
+/* 세그먼트 안의 버튼은 언어 숨김 규칙에서 제외 */
+:root[data-lang="ja"] .seg [lang="ko"],
+:root[data-lang="ko"] .seg [lang="ja"] { display: inline; }
+
+.btn {
+  font-family: inherit;
+  font-size: inherit;
+  letter-spacing: 0.04em;
+  color: var(--faint);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  transition: color 0.12s ease;
+}
+.btn:hover { color: var(--fg); }
+.btn:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
+
+/* 언어 전환 — 둘 다 HTML에 넣고 한쪽을 숨김 */
+:root[data-lang="ja"] [lang="ko"] { display: none; }
+:root[data-lang="ko"] [lang="ja"] { display: none; }
+
+/* ── 이름 주변 ───────────────────────────── */
+
+h1 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin-bottom: 0.9rem;
+  scroll-margin-top: 2rem;
+}
+section { scroll-margin-top: 2rem; }
+
+/* ── 우측 고정 내비 ───────────────────────── */
+
+.sidenav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  /* 본문 칸 오른쪽 가장자리에서 2.5rem 떨어진 곳 */
+  left: calc(50% + var(--measure) / 2 + 2.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.sidenav a {
+  color: var(--faint);
+  text-decoration: none;
+  padding-left: 0.9rem;
+  position: relative;
+  transition: color 0.12s ease;
+}
+/* 활성 항목 앞에만 불릿 (·) — 비활성은 아무것도 없음 */
+.sidenav a::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0;
+  transform: translateY(-50%) scale(0.6);
+  transition: opacity 0.12s ease, transform 0.12s ease;
+}
+.sidenav a:hover { color: var(--fg); }
+.sidenav a.active { color: var(--fg); }
+.sidenav a.active::before { opacity: 1; transform: translateY(-50%) scale(1); }
+
+/* 본문 칸 + 내비가 함께 들어갈 폭이 없으면 숨김 */
+@media (max-width: 1040px) { .sidenav { display: none; } }
+
+.intro { margin-bottom: 3.2rem; }
+.intro p { font-size: 0.95rem; line-height: 1.8; }
+.intro .lead { font-size: 1.05rem; line-height: 1.75; }
+.intro h3 {
+  font-size: 0.92rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.45rem;
+}
+.intro h3:first-of-type { margin-top: 0; }
+/* 본문 속 링크 — 밑줄 + 사슬 아이콘 */
+.intro a.link {
+  font-weight: 600;
+  color: var(--fg);
+  text-decoration: underline;
+  text-decoration-color: var(--muted);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  white-space: nowrap;
+}
+.intro a.link:hover { text-decoration-color: var(--fg); }
+/* 항목 아래 첨부 뱃지 줄 (상장 · 논문 PDF) — 회색 윤곽선 알약 */
+.links {
+  margin: 0.4rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.links .badge-doc {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  font-weight: 500;
+  color: var(--muted);
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  text-decoration: none;
+  transition: color 0.12s ease, border-color 0.12s ease;
+}
+:root[data-theme="light"] .links .badge-doc { border-color: #CFD4D8; }
+.links .badge-doc:hover { color: var(--fg); border-color: var(--muted); }
+.badge-doc [lang] { display: inline; }
+:root[data-lang="ja"] .badge-doc [lang="ko"],
+:root[data-lang="ko"] .badge-doc [lang="ja"] { display: none; }
+.doc-icon { flex: none; }
+.link-icon { color: var(--fg); }
+.links .link-icon { color: var(--faint); }
+.link-icon {
+  display: inline-block;
+  margin-left: 0.2em;
+  vertical-align: -0.1em;
+  color: var(--muted);
+}
+.intro a.link:hover /* 항목 아래 첨부 링크 줄 (상장 · 논문 PDF) */
+.links {
+  margin: 0.25rem 0 0;
+  font-size: 0.78rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1rem;
+}
+.links a.link {
+  color: var(--muted);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: var(--rule);
+  text-underline-offset: 3px;
+  white-space: nowrap;
+}
+.links a.link:hover { color: var(--fg); text-decoration-color: var(--fg); }
+.links a.link:hover .link-icon { color: var(--fg); }
+.links .link-icon { color: var(--faint); }
+.link-icon { color: var(--fg); }
+
+.tilde {
+  text-align: center;
+  color: var(--faint);
+  font-size: 1.3rem;
+  line-height: 1;
+  margin: 1.2rem 0 1.6rem;
+  user-select: none;
+}
+
+/* ── 섹션 ───────────────────────────────── */
+
+section { margin-top: 2.8rem; }
+section:first-of-type { margin-top: 0; }
+
+h2 {
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 0.9rem;
+}
+
+/* 항목 한 줄: 이름(좌) · 기간(우), 아래에 보조 한 줄 */
+.row {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.row:last-child { border-bottom: 0; }
+/* 본문이 긴 항목(경력·프로젝트·활동)은 위아래 여백을 넉넉히 */
+#experience .row,
+#projects .row,
+#activity .row { padding: 1.6rem 0; }
+#experience .row:first-of-type,
+#projects .row:first-of-type,
+#activity .row:first-of-type { padding-top: 0.6rem; }
+#experience .row:last-child,
+#projects .row:last-child,
+#activity .row:last-child { padding-bottom: 0.4rem; }
+/* 프로젝트 안 요소 사이도 조금 더 띄움 */
+#projects .desc { margin-top: 0.7rem; }
+#projects .stack { margin-top: 0.6rem; }
+/* 프로젝트 링크(GitHub · 사이트)는 제목 바로 아래로 올리고, 첨부 뱃지보다 한 단계 밝게 */
+#projects .links { margin-top: 0.55rem; gap: 0.45rem; }
+#projects .links .badge-doc {
+  color: var(--fg);
+  background: var(--bg-2);
+  border-color: rgba(255, 255, 255, 0.22);
+  padding-inline: 0.7em;
+}
+:root[data-theme="light"] #projects .links .badge-doc { border-color: #C4CACF; }
+#projects .links .badge-doc:hover { border-color: var(--fg); }
+#projects .shot { margin-top: 1.1rem; }
+#projects .shot-label { margin-top: 1.1rem; }
+.row-compact { padding: 0.55rem 0; }
+.medal { margin-right: 0.4rem; font-size: 0.9em; }
+
+/* 타임라인 — 왼쪽에 세로선과 점으로 이력을 잇는다 */
+.timeline { position: relative; padding-left: 1.5rem; }
+.timeline h2 { margin-left: -1.5rem; }
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 2.4rem;
+  bottom: 0.9rem;
+  width: 1px;
+  background: var(--faint);
+  opacity: 0.35;
+}
+.timeline .row { position: relative; border-bottom: 0; padding: 0.5rem 0; }
+.timeline .row::before {
+  content: "";
+  position: absolute;
+  left: -1.5rem;
+  top: 0.95rem;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1.5px solid var(--faint);
+  box-sizing: border-box;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+}
+.name {
+  font-weight: 600;
+  color: var(--fg);
+  text-decoration: none;
+}
+a.name:hover { text-decoration: underline; text-decoration-color: var(--fg); }
+.when {
+  font-size: 0.82rem;
+  color: var(--faint);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.role {
+  margin: 0.1rem 0 0;
+  font-size: 0.86rem;
+  color: var(--muted);
+}
+/* 역할 뱃지 — 파스텔 레드 알약 */
+.badge {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.05em 0.55em;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.6;
+  color: var(--hl-fg);
+  background: var(--hl);
+  vertical-align: 1px;
+  white-space: nowrap;
+}
+.badge + .badge { margin-left: 0.35rem; }
+/* 기간 뱃지 — 강조색 점선 테두리 (역할 뱃지는 채움, 기간은 점선으로 구분) */
+.badge-when {
+  margin-left: 0;
+  font-weight: 500;
+  color: var(--hl-fg);
+  background: none;
+  border: 1px dashed var(--hl-fg);
+  opacity: 0.85;
+  font-variant-numeric: tabular-nums;
+}
+/* 구분 태그 — 팀 / 개인 (기간 뱃지 왼쪽, 같은 강조색 점선) */
+.badge-type {
+  margin: 0 0.35rem 0 0;
+  font-weight: 500;
+  color: var(--hl-fg);
+  background: none;
+  border: 1px dashed var(--hl-fg);
+  opacity: 0.85;
+}
+.badge-type [lang] { display: inline; }
+:root[data-lang="ja"] .badge-type [lang="ko"],
+:root[data-lang="ko"] .badge-type [lang="ja"] { display: none; }
+.badge-when [lang] { display: inline; }
+:root[data-lang="ja"] .badge-when [lang="ko"],
+:root[data-lang="ko"] .badge-when [lang="ja"] { display: none; }
+
+.desc {
+  margin: 0.45rem 0 0;
+  font-size: 0.86rem;
+  color: var(--fg);
+  line-height: 1.65;
+}
+.desc a { color: inherit; }
+.desc a[href^="#"] { color: var(--muted); text-decoration: none; white-space: nowrap; }
+.desc a[href^="#"]:hover { color: var(--fg); }
+/* 스택 — 영역별로 나눠 적는다 (Backend / Infra …) */
+.stack {
+  margin: 0.35rem 0 0;
+  display: grid;
+  grid-template-columns: 4.6rem 1fr;
+  gap: 0.15rem 0.8rem;
+  font-size: 0.78rem;
+  font-family: var(--mono);
+  letter-spacing: -0.01em;
+}
+.stack dt { color: var(--faint); }
+.stack dd { margin: 0; color: var(--muted); }
+
+/* 프로젝트 스크린샷 — 둥근 모서리, 흰색 5% 테두리 */
+.shot {
+  margin: 0.9rem 0 0;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  background: var(--bg-2);
+}
+.shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+/* 스크린샷 그룹 라벨 (Web / iOS) */
+.shot-label {
+  margin: 0.9rem 0 -0.5rem;
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+/* 모바일 캡처 4장 — 나란히, 좁으면 옆으로 스크롤 */
+.shots-mobile {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 0.9rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.shots-mobile::-webkit-scrollbar { display: none; }
+.shots-mobile .shot {
+  flex: 0 0 calc((100% - 1.8rem) / 4);
+  margin: 0;
+  scroll-snap-align: start;
+}
+@media (max-width: 560px) {
+  .shots-mobile .shot { flex-basis: 46%; }
+}
+
+/* 세로로 긴 캡처는 위쪽 기준으로 잘라 보여준다 */
+.shot-crop img {
+  object-fit: cover;
+  object-position: top;
+  max-height: 340px;
+}
+
+.notes { margin-top: 0.55rem; }
+.notes li {
+  position: relative;
+  padding-left: 1rem;
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: var(--fg);
+  margin-bottom: 0.3rem;
+}
+.notes b { font-weight: 600; color: var(--fg); }
+.notes li::before {
+  content: "–";
+  position: absolute;
+  left: 0;
+  color: var(--faint);
+}
+
+/* 2단 목록 — 굵은 제목 줄 + 들여쓴 설명 줄 (인턴 성과) */
+.notes-2 > li { padding-left: 0; margin-bottom: 0.7rem; }
+.notes-2 > li::before { content: none; }
+.notes-2 > li > b { display: block; margin-bottom: 0.15rem; }
+.notes-2 ul { margin: 0; padding: 0; list-style: none; }
+.notes-2 ul li {
+  position: relative;
+  padding-left: 1rem;
+  margin-bottom: 0.15rem;
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.6;
+}
+.notes-2 ul li::before {
+  content: "–";
+  position: absolute;
+  left: 0;
+  color: var(--faint);
+}
+
+/* 한 줄 열거 (skills) */
+.line {
+  margin: 0 0 0.35rem;
+  display: grid;
+  grid-template-columns: 6.2rem 1fr;
+  gap: 0 1rem;
+  font-size: 0.86rem;
+}
+.line dt { color: var(--faint); }
+.line dd { margin: 0; color: var(--fg); }
+/* 주력 기술 — 형광펜 + 굵게 */
+.line .core { font-weight: 600; }
+
+/* connect: 도메인은 흐리게, 핸들은 밝게 */
+.connect li { margin-bottom: 0.2rem; font-size: 0.92rem; }
+.connect a { text-decoration: none; }
+.connect a:hover { text-decoration: underline; text-decoration-color: var(--fg); }
+.connect .host { color: var(--muted); }
+
+/* ── 푸터 ───────────────────────────────── */
+
+footer {
+  margin-top: 4rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.74rem;
+  color: var(--faint);
+  line-height: 1.9;
+}
+
+/* ── 모바일 ─────────────────────────────── */
+
+@media (max-width: 560px) {
+  .page { padding-block: 3rem 4rem; }
+  .head { flex-wrap: wrap; gap: 0 0.75rem; }
+  .line { grid-template-columns: 5.2rem 1fr; }
+}
