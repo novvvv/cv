@@ -20,11 +20,11 @@ function readAttr<T extends string>(name: string, fallback: T): T {
    적용해 둔 속성에서 읽는다. */
 export default function Controls() {
   const [lang, setLang] = useState<Lang>("ja");
-  const [theme, setTheme] = useState<Theme>("dark");
+  const [theme, setTheme] = useState<Theme>("light");
 
   useEffect(() => {
     setLang(readAttr<Lang>("data-lang", "ja"));
-    setTheme(readAttr<Theme>("data-theme", "dark"));
+    setTheme(readAttr<Theme>("data-theme", "light"));
   }, []);
 
   function applyLang(next: Lang) {

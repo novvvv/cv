@@ -18,7 +18,7 @@ export const viewport: Viewport = {
 
 /*
  * 저장된 언어·테마를 첫 페인트 전에 <html> 에 적용한다.
- * 서버는 항상 ja / dark 로 렌더하므로, 클라이언트에서 값이 다르면
+ * 서버는 항상 ja / light 로 렌더하므로, 클라이언트에서 값이 다르면
  * 하이드레이션 경고가 나는데 그건 suppressHydrationWarning 으로 막는다.
  * (LangSwitch / ThemeToggle 컴포넌트가 같은 키를 읽고 쓴다)
  */
@@ -38,7 +38,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="ja" data-lang="ja" data-theme="dark" suppressHydrationWarning>
+    <html lang="ja" data-lang="ja" data-theme="light" suppressHydrationWarning>
       <head>
         <Script id="cv-boot" strategy="beforeInteractive">
           {bootScript}

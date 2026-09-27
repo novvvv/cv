@@ -16,20 +16,39 @@
 
 .topbar {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   gap: 1rem;
   margin-bottom: 3rem;
-  font-size: 0.72rem;
+  font-size: 0.82rem;
 }
 
-.kicker {
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+/* 서명 로고 — 누르면 포트폴리오(홈)로 */
+.logo { display: inline-flex; color: var(--fg); transition: opacity 0.12s ease; }
+.logo:hover { opacity: 0.7; }
+.logo:focus-visible { outline: 2px solid var(--fg); outline-offset: 4px; }
+
+.topbar-right { margin-left: auto; min-width: 0; display: flex; flex-wrap: wrap; gap: 0.6rem 1.4rem; align-items: center; justify-content: flex-end; }
+
+/* Articles · GitHub · Tistory — 토글 버튼과 같은 회색 톤, 호버 시 밝게 */
+.site-links { display: flex; gap: 0.9rem; align-items: center; }
+.site-links a {
+  letter-spacing: 0.04em;
   color: var(--faint);
+  text-decoration: none;
+  transition: color 0.12s ease;
 }
-.kicker .sep { margin: 0 0.3em; }
-
+.site-links a:hover { color: var(--fg); }
+.site-links a:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
+.site-links .icon-link { display: inline-flex; }
+/* Articles 강조 — 본문 mark 와 같은 검은 형광펜 */
+.site-links a.cta {
+  padding: 0 0.15em;
+  color: var(--mark-fg);
+  background-image: linear-gradient(transparent 8%, var(--mark) 8%, var(--mark) 96%, transparent 96%);
+  transition: opacity 0.12s ease;
+}
+.site-links a.cta:hover { color: var(--mark-fg); opacity: 0.8; }
 .controls { display: flex; gap: 1.4rem; align-items: baseline; }
 
 /* 言語セレクタ — 日本語 / 한국어 (選択中は明るく) */
@@ -61,11 +80,23 @@
 /* ── 이름 주변 ───────────────────────────── */
 
 h1 {
-  font-size: 1.05rem;
-  font-weight: 600;
+  font-size: 2.1rem;
+  font-weight: 700;
   letter-spacing: 0.01em;
-  margin-bottom: 0.9rem;
+  margin-bottom: 1rem;
   scroll-margin-top: 2rem;
+}
+/* 일본어 이름 — 한자 한 글자마다 가타카나 후리가나.
+   자간을 주면 후리가나 중심이 어긋나므로 0 으로 두고, 성·이름 사이만 띄운다. */
+.name-ja { letter-spacing: 0; }
+.name-ja ruby { ruby-align: center; }
+.name-ja .given { margin-left: 0.35em; }
+.name-ja rt {
+  font-size: 0.36em;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-align: center;
+  color: var(--muted);
 }
 section { scroll-margin-top: 2rem; }
 
@@ -75,42 +106,39 @@ section { scroll-margin-top: 2rem; }
   position: fixed;
   top: 50%;
   transform: translateY(-50%);
-  /* 본문 칸 오른쪽 가장자리에서 2.5rem 떨어진 곳 */
-  left: calc(50% + var(--measure) / 2 + 2.5rem);
+  /* 본문 칸 오른쪽 가장자리에서 4rem 떨어진 곳 */
+  left: calc(50% + var(--measure) / 2 + 4rem);
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
 }
+/* 항목 앞의 가로선 — 평소엔 짧고 흐리게, 현재 섹션·호버는 길고 진하게 */
 .sidenav a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
   color: var(--faint);
   text-decoration: none;
-  padding-left: 0.9rem;
-  position: relative;
-  transition: color 0.12s ease;
+  transition: color 0.15s ease;
 }
-/* 활성 항목 앞에만 불릿 (·) — 비활성은 아무것도 없음 */
 .sidenav a::before {
   content: "";
-  position: absolute;
-  left: 0;
-  top: 50%;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
+  flex: none;
+  width: 1rem;
+  height: 1px;
   background: currentColor;
-  opacity: 0;
-  transform: translateY(-50%) scale(0.6);
-  transition: opacity 0.12s ease, transform 0.12s ease;
+  opacity: 0.5;
+  transition: width 0.15s ease, opacity 0.15s ease;
 }
-.sidenav a:hover { color: var(--fg); }
+.sidenav a:hover,
 .sidenav a.active { color: var(--fg); }
-.sidenav a.active::before { opacity: 1; transform: translateY(-50%) scale(1); }
+.sidenav a:hover::before,
+.sidenav a.active::before { width: 2rem; opacity: 1; }
 
 /* 본문 칸 + 내비가 함께 들어갈 폭이 없으면 숨김 */
-@media (max-width: 1040px) { .sidenav { display: none; } }
+@media (max-width: 1220px) { .sidenav { display: none; } }
 
 .intro { margin-bottom: 3.2rem; }
 .intro p { font-size: 0.95rem; line-height: 1.8; }
@@ -200,13 +228,13 @@ section { scroll-margin-top: 2rem; }
 section { margin-top: 2.8rem; }
 section:first-of-type { margin-top: 0; }
 
+/* 섹션 제목 — 본문보다 크고 굵게 (사이드 내비와 같은 첫 글자 대문자) */
 h2 {
-  font-size: 0.66rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--faint);
-  margin-bottom: 0.9rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--fg);
+  margin-bottom: 1.1rem;
 }
 
 /* 항목 한 줄: 이름(좌) · 기간(우), 아래에 보조 한 줄 */
@@ -250,7 +278,7 @@ h2 {
   content: "";
   position: absolute;
   left: 4px;
-  top: 2.4rem;
+  top: 3.5rem;
   bottom: 0.9rem;
   width: 1px;
   background: var(--faint);

@@ -1,5 +1,5 @@
-import Controls from "@/components/Controls";
 import SideNav from "@/components/SideNav";
+import TopBar from "@/components/TopBar";
 
 /* 본문. 한/일 텍스트는 lang 속성이 붙은 span 으로 나란히 두고,
    CSS (:root[data-lang]) 가 한쪽을 숨긴다. */
@@ -8,14 +8,15 @@ export default function Page() {
     <>
       <SideNav />
       <main className="page">
-        <div className="topbar">
-          <span className="kicker">
-            Backend Engineer <span className="sep">·</span> Portfolio
-          </span>
-          <Controls />
-        </div>
+        <TopBar />
 
-        <h1 id="about">CHOI DOIL</h1>
+        <h1 id="about">
+          <span lang="ja" className="name-ja">
+            <ruby>崔<rt>チョイ</rt></ruby>
+            <ruby className="given">渡<rt>ド</rt>馹<rt>イル</rt></ruby>
+          </span>
+          <span lang="ko">CHOI DOIL</span>
+        </h1>
 
         <div className="intro">
           <p className="lead">
@@ -44,7 +45,7 @@ export default function Page() {
 
 
         <section id="awards" className="timeline">
-          <h2>AWARDS</h2>
+          <h2>Awards</h2>
 
           <div className="row row-compact">
             <div className="head">
@@ -88,7 +89,7 @@ export default function Page() {
 
 
         <section id="papers" className="timeline">
-          <h2>PAPERS</h2>
+          <h2>Papers</h2>
 
           <div className="row row-compact">
             <div className="head">
@@ -135,7 +136,7 @@ export default function Page() {
 
 
         <section id="experience">
-          <h2><span lang="ja">EXPERIENCE</span><span lang="ko">EXPERIENCE</span></h2>
+          <h2>Experience</h2>
 
           <div className="row">
             <div className="head">
@@ -207,7 +208,7 @@ export default function Page() {
 
 
         <section id="projects">
-          <h2>PROJECTS</h2>
+          <h2>Projects</h2>
 
           <div className="row">
             <div className="head">
@@ -318,7 +319,7 @@ export default function Page() {
 
 
         <section id="activity">
-          <h2>ACTIVITY</h2>
+          <h2>Activity</h2>
 
           <div className="row">
             <div className="head">
@@ -383,7 +384,7 @@ export default function Page() {
 
 
         <section id="education">
-          <h2>EDUCATION</h2>
+          <h2>Education</h2>
 
           <div className="row">
             <div className="head">
@@ -411,7 +412,7 @@ export default function Page() {
 
 
         <section id="certifications">
-          <h2>CERTIFICATIONS</h2>
+          <h2>Certifications</h2>
 
           <div className="row row-compact">
             <div className="head">
@@ -449,7 +450,7 @@ export default function Page() {
 
 
         <section id="skills">
-          <h2>SKILLS</h2>
+          <h2>Skills</h2>
           <dl className="line"><dt>Language</dt><dd><mark className="core">Java</mark> · Python · Dart</dd></dl>
           <dl className="line"><dt>Backend</dt><dd><mark className="core">Spring Boot</mark> · <mark className="core">JPA</mark> · FastAPI</dd></dl>
           <dl className="line"><dt>Frontend</dt><dd>React · Next.js</dd></dl>
@@ -461,7 +462,7 @@ export default function Page() {
 
 
         <section id="connect">
-          <h2>CONNECT</h2>
+          <h2>Connect</h2>
           <ul className="connect">
             <li><a href="mailto:dohana1205@gmail.com">dohana1205@gmail.com</a></li>
             <li><a href="https://github.com/novvvv"><span className="host">github.com/</span>novvvv</a></li>
