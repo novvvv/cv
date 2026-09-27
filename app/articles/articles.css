@@ -1,0 +1,167 @@
+/* ══════════════════════════════════════════════════
+   articles.css — /articles 목록 · 카테고리 · 본문
+   색은 base.css 의 토큰을 그대로 쓴다.
+   ══════════════════════════════════════════════════ */
+
+/* ── 카테고리 탭 ─────────────────────────── */
+
+.article-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.4rem;
+  margin: 0.4rem 0 2.6rem;
+  font-size: 0.86rem;
+}
+.article-tabs a {
+  color: var(--faint);
+  text-decoration: none;
+  padding-bottom: 0.2rem;
+  border-bottom: 1px solid transparent;
+  transition: color 0.12s ease, border-color 0.12s ease;
+}
+.article-tabs a:hover { color: var(--fg); }
+.article-tabs a[aria-current="page"] { color: var(--fg); border-bottom-color: var(--fg); }
+
+/* ── 연도별 목록 ─────────────────────────── */
+
+.article-year { margin-top: 2.2rem; }
+.article-year h2 { color: var(--faint); font-weight: 500; }
+
+.article-list li { border-bottom: 1px solid var(--rule); }
+.article-list li:last-child { border-bottom: 0; }
+
+.article-link {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.7rem 0;
+  color: var(--fg);
+  text-decoration: none;
+}
+.article-link:hover .article-title { text-decoration: underline; text-underline-offset: 4px; }
+
+.article-title { font-size: 0.95rem; font-weight: 500; }
+.article-meta {
+  flex: none;
+  display: flex;
+  gap: 0.9rem;
+  font-size: 0.78rem;
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 한 언어로만 쓴 글 · 초안 표시 */
+.lang-only,
+.draft-tag {
+  margin-left: 0.5rem;
+  padding: 0 0.4em;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--faint);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  vertical-align: 2px;
+}
+.draft-tag { border-style: dashed; }
+.lock { margin-left: 0.4rem; font-size: 0.75em; vertical-align: 1px; }
+
+.article-empty { color: var(--faint); font-size: 0.9rem; margin-top: 1rem; }
+
+@media (max-width: 560px) {
+  .article-link { flex-direction: column; gap: 0.2rem; }
+}
+
+/* ── 본문 ───────────────────────────────── */
+
+.post-head { margin-bottom: 2.4rem; }
+.post-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--faint);
+  margin-bottom: 0.6rem;
+}
+.post-meta a { color: inherit; text-decoration: none; }
+.post-meta a:hover { color: var(--fg); }
+.post-title { font-size: 1.7rem; line-height: 1.35; }
+.post-title .lang-only { font-size: 0.8rem; }
+
+.prose { font-size: 0.95rem; line-height: 1.85; }
+.prose > * + * { margin-top: 1.1em; }
+.prose h2 { font-size: 1.25rem; margin-top: 2.4em; margin-bottom: -0.2em; color: var(--fg); }
+.prose h3 { font-size: 1.05rem; font-weight: 600; margin-top: 1.8em; margin-bottom: -0.4em; }
+.prose ul,
+.prose ol { padding-left: 1.3em; }
+.prose ul { list-style: disc; }
+.prose ol { list-style: decimal; }
+.prose li + li { margin-top: 0.3em; }
+.prose a { text-decoration-color: var(--muted); }
+.prose a:hover { text-decoration-color: var(--fg); }
+/* 코드 블록을 감싸는 figure · 인용문의 브라우저 기본 좌우 여백(40px) 제거 */
+.prose figure,
+.prose blockquote { margin-inline: 0; }
+.prose blockquote {
+  padding-left: 1em;
+  border-left: 2px solid var(--rule);
+  color: var(--muted);
+}
+.prose img { max-width: 100%; height: auto; border: 1px solid var(--rule); border-radius: 6px; }
+.prose hr { border: 0; border-top: 1px solid var(--rule); margin: 2.4em 0; }
+.prose table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+.prose th,
+.prose td { padding: 0.45em 0.6em; border-bottom: 1px solid var(--rule); text-align: left; }
+
+/* 인라인 코드 */
+.prose :not(pre) > code {
+  padding: 0.12em 0.35em;
+  border-radius: 4px;
+  background: var(--bg-2);
+}
+
+/* 코드 블록 (rehype-pretty-code) — 테마 두 벌 중 data-theme 에 맞는 색을 쓴다 */
+.prose pre {
+  overflow-x: auto;
+  padding: 1em 1.1em;
+  border-radius: 8px;
+  background: var(--bg-2);
+  font-size: 0.84rem;
+  line-height: 1.65;
+}
+.prose pre code { font-family: var(--mono); }
+.prose [data-rehype-pretty-code-figure] code span { color: var(--shiki-light); }
+:root[data-theme="dark"] .prose [data-rehype-pretty-code-figure] code span { color: var(--shiki-dark); }
+
+/* 잠긴 글 — 비밀번호 입력 */
+.unlock { max-width: 360px; }
+.unlock-note { color: var(--muted); font-size: 0.9rem; margin-bottom: 0.9rem; }
+.unlock-row { display: flex; gap: 0.5rem; }
+.unlock input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.5em 0.7em;
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--fg);
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+}
+.unlock input:focus { outline: 2px solid var(--fg); outline-offset: 1px; }
+.unlock button {
+  padding: 0.5em 1em;
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--mark-fg);
+  background: var(--mark);
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.unlock button:hover { opacity: 0.85; }
+.unlock-error { margin-top: 0.6rem; font-size: 0.82rem; color: #C2410C; }
+
+.post-back { margin-top: 3.6rem; font-size: 0.86rem; }
+.post-back a { color: var(--faint); text-decoration: none; }
+.post-back a:hover { color: var(--fg); }
