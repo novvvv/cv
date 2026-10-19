@@ -30,7 +30,7 @@
 
 .topbar-right { margin-left: auto; min-width: 0; display: flex; flex-wrap: wrap; gap: 0.6rem 1.4rem; align-items: center; justify-content: flex-end; }
 
-/* Articles · GitHub · Tistory — 토글 버튼과 같은 회색 톤, 호버 시 밝게 */
+/* GitHub · Tistory — 토글 버튼과 같은 회색 톤, 호버 시 밝게 */
 .site-links { display: flex; gap: 0.9rem; align-items: center; }
 .site-links a {
   letter-spacing: 0.04em;
@@ -41,14 +41,6 @@
 .site-links a:hover { color: var(--fg); }
 .site-links a:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
 .site-links .icon-link { display: inline-flex; }
-/* Articles 강조 — 본문 mark 와 같은 검은 형광펜 */
-.site-links a.cta {
-  padding: 0 0.15em;
-  color: var(--mark-fg);
-  background-image: linear-gradient(transparent 8%, var(--mark) 8%, var(--mark) 96%, transparent 96%);
-  transition: opacity 0.12s ease;
-}
-.site-links a.cta:hover { color: var(--mark-fg); opacity: 0.8; }
 .controls { display: flex; gap: 1.4rem; align-items: baseline; }
 
 /* 言語セレクタ — 日本語 / 한국어 (選択中は明るく) */

@@ -1,11 +1,7 @@
-import Link from "next/link";
-
-/* topbar 우측 링크 묶음 — Articles (사이트 내부) · GitHub · Tistory (외부, 아이콘).
-   홈과 /articles 에서 같이 쓴다. */
+/* topbar 우측 링크 묶음 — GitHub · Tistory (외부, 아이콘). */
 export default function SiteLinks() {
   return (
     <nav className="site-links" aria-label="Links">
-      <Link className="cta" href="/articles">Articles</Link>
       <a
         className="icon-link"
         href="https://github.com/novvvv"
