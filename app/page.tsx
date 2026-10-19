@@ -323,6 +323,21 @@ export default function Page() {
 
           <div className="row">
             <div className="head">
+              <span className="name">SoftBank Hackathon 2026 <span lang="ja">予選</span><span lang="ko">예선</span></span>
+              <span className="when">2026.10</span>
+            </div>
+            <p className="role">
+              <span lang="ja">チームリーダー · ロギング・モニタリングモジュール開発</span>
+              <span lang="ko">팀장 · 로깅·모니터링 모듈 제작</span>
+            </p>
+            <p className="links">
+              <a className="badge badge-doc" href="https://github.com/SoftBank-team-lily" target="_blank" rel="noopener"><svg className="doc-icon" viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02A9.6 9.6 0 0 1 12 6.8c.85 0 1.71.12 2.5.34 1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2z" fill="currentColor"/></svg><span lang="ja">GitHub</span><span lang="ko">GitHub</span></a>
+              <a className="badge badge-doc" href="/docs/softbank-hackathon-2026.pdf" target="_blank" rel="noopener"><svg className="doc-icon" viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/><path d="M14 2v6h6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/></svg><span lang="ja">修了証</span><span lang="ko">수료증</span></a>
+            </p>
+          </div>
+
+          <div className="row">
+            <div className="head">
               <span className="name"><span lang="ja">非開発者向け RAG 社内セミナー</span><span lang="ko">비개발자 대상 RAG 사내 세미나</span></span>
               <span className="when">2026.07</span>
             </div>
